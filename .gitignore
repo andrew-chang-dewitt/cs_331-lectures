@@ -1,2 +1,17 @@
 .DS_Store
 .ipynb_checkpoints
+
+# python environment
+.env/
+.envrc
+
+# vim files
+*.swp
+*.swo
+
+# python caches
+__pycache__/
+.mypy_cache/
+
+# testing coverage reports
+.coverage
