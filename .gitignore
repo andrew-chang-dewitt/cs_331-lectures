@@ -3,7 +3,6 @@
 
 # python environment
 .env/
-.envrc
 
 # vim files
 *.swp
