@@ -6,10 +6,10 @@ scikit-learn==1.4.2
 scipy==1.13.0
 seaborn==0.13.2
 torch==2.2.2
-jupyter>=1.0
 notebook<7.0.0
+jupyter>=1.0
 autopep8>=1.5.4
-mypy>=0.800,<0.810
+mypy>=1.0.0
 pycodestyle>=2.6.0
 pydocstyle>=5.1.1
 pylint>=2.6.0

@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+# 
+# FLAGS
+#
+k_flag=''
+verbose='false'
+
+while getopts 'k:v' flag; do
+    case "${flag}" in
+        k) k_flag="${OPTARG}" ;;
+        v) verbose='true' ;;
+    esac
+done
+
+#
+# NAVIGATE TO CORRECT DIRECTORY
+#
+
+# start by going to script dir so all movements
+# from here are relative
+SCRIPT_DIR=`dirname $(realpath "$0")`
+PRJ_DIR=$SCRIPT_DIR/..
+
+
+#
+# RUN TESTS
+#
+
+function unit {
+    cd $PRJ_DIR
+    # enable app virtual environment
+    # eval "$(direnv export bash)"
+    if [ !$PYTHONPATH ]; then
+        export PYTHONPATH=$PWD
+    fi
+    echo ""
+
+    echo ""
+    echo "Starting unit tests..."
+    echo ""
+
+    # run unit tests & save exit code
+    # cd $PRJ_DIR/tests/unit
+    # python -m unittest -b $@
+    pytest -k $k_flag
+    # save exit code from tests
+    unit_result=$?
+    echo ""
+}
+
+unit ${@:2}
+exit $unit_result

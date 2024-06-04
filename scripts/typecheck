@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+
+#
+# NAVIGATE TO CORRECT DIRECTORY
+#
+
+# start by going to script dir so all movements
+# from here are relative
+SCRIPT_DIR=`dirname $(realpath "$0")`
+cd $SCRIPT_DIR
+
+
+function check {
+    cd ..
+    # enable app virtual environment
+    eval "$(direnv export bash)"
+    if [ !$PYTHONPATH ]; then
+        export PYTHONPATH=$PWD
+    fi
+    echo ""
+
+    echo ""
+    echo "Starting type checks..."
+    echo ""
+
+    echo "Checking ./src..."
+    echo ""
+    mypy src
+    mypy_src_result=$?
+
+    echo ""
+    echo "Checking ./tests..."
+    echo ""
+    mypy tests
+    mypy_tests_result=$?
+
+    # return to scripts directory
+    cd $SCRIPT_DIR
+    echo ""
+}
+
+check
+
+if [ $mypy_src_result != 0 ]; then
+    echo "Error in typechecking application, see output above."
+    exit $mypy_src_result
+elif [ $mypy_tests_result != 0 ]; then
+    echo "Error in typechecking tests, see output above."
+    exit $mypy_tests_result
+fi

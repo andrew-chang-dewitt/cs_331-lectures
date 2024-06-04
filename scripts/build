@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# SET PWD TO DIRNAME OF THIS SCRIPT
+# this script should always be located next to
+# docker-compose.yml & the test_runner package
+# directory (containing python env & tests)
+script_dir=`dirname "$0"`
+cd $script_dir
+cd ..
+
+docker-compose build
